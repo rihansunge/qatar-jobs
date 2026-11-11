@@ -3,43 +3,80 @@ import json
 import urllib.request
 import urllib.error
 
-# 1. Retrieve the secret key safely from GitHub Actions environment
+# Get your API key from GitHub repository secrets
 api_key = os.environ.get("JOOBLE_API_KEY")
 if not api_key:
-    print("Error: JOOBLE_API_KEY is missing from repository secrets.")
+    print("Error: JOOBLE_API_KEY is missing.")
     exit(1)
 
-# 2. Setup the official Jooble API endpoint
 url = f"https://jooble.org/api/{api_key}"
 
-# 3. Flexible payload to pull genuine listings matching Qatar
-payload = json.dumps({
-    "keywords": "jobs",
-    "location": "Qatar",
-    "page": 1
-}).encode("utf-8")
+# Comprehensive list of search keywords covering all job types and industries in Qatar
+categories = [
+    # Administration & Front Office
+    "receptionist", "cashier", "administrator", "secretary", "data entry", "office boy",
+    
+    # Skilled Trades, Automotive & Operations
+    "auto painter", "denter", "mechanic", "technician", "electrician", "plumber", "welder", "carpenter",
+    
+    # Logistics, Transport & General Labor
+    "driver", "delivery", "storekeeper", "warehouse worker", "laborer", "cleaner", "security guard",
+    
+    # Finance, Sales & Retail
+    "accountant", "sales associate", "sales executive", "merchandiser", "cashier", "marketing",
+    
+    # Engineering, Construction & IT
+    "engineer", "civil engineer", "safety officer", "draftsman", "IT technician", "software developer",
+    
+    # Hospitality, Food & Services
+    "waiter", "waitress", "barista", "cook", "chef", "housekeeping", "hotel staff",
+    
+    # Healthcare & Customer Service
+    "nurse", "pharmacist", "customer service", "call center",
+    
+    # Management & General Search
+    "manager", "supervisor", "coordinator", "jobs"
+]
 
-req = urllib.request.Request(
-    url,
-    data=payload,
-    headers={"Content-Type": "application/json"},
-    method="POST"
-)
+all_jobs = []
+seen_links = set()
 
-try:
-    # 4. Fetch the data from trusted sources via Jooble API
-    with urllib.request.urlopen(req) as response:
-        result = json.loads(response.read().decode("utf-8"))
-        jobs = result.get("jobs", [])
-        
-        # 5. Save the active jobs directly into jobs.json for your website
-        with open("jobs.json", "w", encoding="utf-8") as f:
-            json.dump(jobs, f, ensure_ascii=False, indent=4)
+# Loop through each keyword to pull all available listings in Qatar
+for keyword in categories:
+    payload = json.dumps({
+        "keywords": keyword,
+        "location": "Qatar",
+        "page": 1
+    }).encode("utf-8")
+
+    req = urllib.request.Request(
+        url,
+        data=payload,
+        headers={"Content-Type": "application/json"},
+        method="POST"
+    )
+
+    try:
+        with urllib.request.urlopen(req) as response:
+            result = json.loads(response.read().decode("utf-8"))
+            jobs = result.get("jobs", [])
             
-        print(f"Successfully saved {len(jobs)} trusted jobs to jobs.json")
+            # Prevent duplicate job posts if a listing hits multiple keyword queries
+            for job in jobs:
+                link = job.get("link")
+                if link and link not in seen_links:
+                    seen_links.add(link)
+                    all_jobs.append(job)
+                    
+    except Exception as e:
+        print(f"Skipped keyword '{keyword}' due to error: {e}")
 
+# Save all gathered jobs to jobs.json
+try:
+    with open("jobs.json", "w", encoding="utf-8") as f:
+        json.dump(all_jobs, f, ensure_ascii=False, indent=4)
+    print(f"Successfully saved a total of {len(all_jobs)} jobs across all categories to jobs.json")
 except Exception as e:
-    print(f"Failed to fetch jobs: {e}")
-    # Fallback to an empty list so your website UI doesn't break
+    print(f"Failed to save jobs.json: {e}")
     with open("jobs.json", "w", encoding="utf-8") as f:
         json.dump([], f)
