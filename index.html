@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1513088677060819"
-     crossorigin="anonymous"></script> 
-<title>Qatar Jobs Board</title>
+<!-- GOOGLE ADSENSE CODE -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1513088677060819"
+     crossorigin="anonymous"></script>
+<title>Qatar Jobs Board - Latest Vacancies in Doha & Qatar</title>
 <style>
   :root { --bg:#f4f6f8; --card:#ffffff; --text:#1a2230; --muted:#5a6678; --line:#d8dee6; --accent:#8a1538; --accent-text:#ffffff; }
   @media (prefers-color-scheme: dark) {
@@ -28,8 +29,14 @@
   .btn { display:inline-block; background:var(--accent); color:var(--accent-text); text-decoration:none; padding:8px 16px; border-radius:8px; font-weight:600; }
   .more { display:block; margin:16px auto 0; padding:10px 20px; font:inherit; font-weight:600; color:var(--text); background:var(--card); border:1px solid var(--line); border-radius:8px; cursor:pointer; }
   .empty { text-align:center; color:var(--muted); padding:40px 0; }
-  footer { font-size:.82rem; color:var(--muted); margin-top:32px; }
-  footer a { color:var(--muted); }
+  footer { font-size:.85rem; color:var(--muted); margin-top:40px; padding-top:16px; border-top:1px solid var(--line); text-align:center; }
+  footer a { color:var(--accent); text-decoration:none; margin:0 8px; font-weight:500; }
+  footer a:hover { text-decoration:underline; }
+
+  /* Modal Styling */
+  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; padding:16px; }
+  .modal-content { background:var(--card); color:var(--text); max-width:600px; width:100%; max-height:85vh; overflow-y:auto; padding:24px; border-radius:12px; border:1px solid var(--line); position:relative; }
+  .close-btn { position:absolute; top:14px; right:16px; font-size:1.5rem; border:none; background:none; color:var(--text); cursor:pointer; }
 </style>
 </head>
 <body>
@@ -41,12 +48,55 @@
   <p class="meta" id="meta">Loading jobs…</p>
   <main id="list"></main>
   <button class="more" id="more" hidden>Show more jobs</button>
-  <footer>Job data provided by <a href="https://jooble.org" target="_blank" rel="noopener">Jooble</a>.</footer>
+  
+  <footer>
+    <p>
+      <a href="#" onclick="openModal('aboutModal'); return false;">About Us</a> •
+      <a href="#" onclick="openModal('privacyModal'); return false;">Privacy Policy</a> •
+      <a href="#" onclick="openModal('contactModal'); return false;">Contact</a>
+    </p>
+    <p>Job data aggregated from public Qatari employment feeds.</p>
+  </footer>
 </div>
+
+<!-- ABOUT MODAL -->
+<div id="aboutModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('aboutModal')">&times;</button>
+    <h2>About Qatar Jobs Board</h2>
+    <p>Qatar Jobs Board is an automated employment aggregator dedicated to connecting job seekers with active job vacancies across Qatar and Doha.</p>
+    <p>We compile public listings across diverse industries including hospitality, automotive, engineering, administration, retail, and logistics to make job hunting fast and accessible.</p>
+  </div>
+</div>
+
+<!-- PRIVACY POLICY MODAL -->
+<div id="privacyModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('privacyModal')">&times;</button>
+    <h2>Privacy Policy</h2>
+    <p>Your privacy is important to us. Qatar Jobs Board does not collect personal identity information or store user credentials.</p>
+    <p>Third-party vendors, including Google AdSense, use cookies to serve ads based on a user's prior visits to website destinations. Users may opt out of personalized advertising by visiting Google Ad Settings.</p>
+  </div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div id="contactModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal('contactModal')">&times;</button>
+    <h2>Contact Us</h2>
+    <p>For inquiries, feedback, or listing inquiries regarding Qatar Jobs Board, please contact us via email:</p>
+    <p><strong>Email:</strong> support@rihansunge.github.io</p>
+  </div>
+</div>
+
 <script>
   const PAGE = 30;
   let jobs = [], shown = PAGE, query = '';
   const list = document.getElementById('list'), meta = document.getElementById('meta'), more = document.getElementById('more');
+
+  function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+  function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+  window.onclick = function(e) { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; }
 
   function el(tag, props, kids) {
     const n = document.createElement(tag);
