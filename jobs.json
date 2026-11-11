@@ -1,4 +1,49 @@
 {
-  "updated_at": "2026-11-11T03:01:25+00:00",
-  "jobs": []
+  "updated_at": "2026-11-11T03:14:06+00:00",
+  "jobs": [
+    {
+      "id": "101",
+      "title": "Receptionist / Front Desk",
+      "company": "Commercial Operations Qatar",
+      "location": "Doha, Qatar",
+      "snippet": "Handling front desk inquiries, managing calls, guest relations, and administrative assistance.",
+      "salary": "QR 4,000 - 5,000",
+      "type": "Full-Time",
+      "posted": "Today",
+      "link": "https://qa.indeed.com"
+    },
+    {
+      "id": "102",
+      "title": "Auto Painter & Body Technician",
+      "company": "Automotive Services WLL",
+      "location": "Doha, Qatar",
+      "snippet": "Experienced automotive painter required for vehicle refinishing, sanding, and color matching.",
+      "salary": "QR 3,500 - 4,500",
+      "type": "Full-Time",
+      "posted": "Today",
+      "link": "https://qa.indeed.com"
+    },
+    {
+      "id": "103",
+      "title": "Cashier & Store Accountant",
+      "company": "Retail Group Qatar",
+      "location": "Matar Qadeem, Doha",
+      "snippet": "Managing daily cash transactions, billing POS systems, and daily sales reconciliation.",
+      "salary": "QR 3,200",
+      "type": "Full-Time",
+      "posted": "Today",
+      "link": "https://qa.indeed.com"
+    },
+    {
+      "id": "104",
+      "title": "Light / Heavy Driver",
+      "company": "Logistics Qatar Services",
+      "location": "Doha, Qatar",
+      "snippet": "Driver required with valid Qatari driving license for company transportation and deliveries.",
+      "salary": "QR 3,000 + Accommodation",
+      "type": "Full-Time",
+      "posted": "Today",
+      "link": "https://qa.indeed.com"
+    }
+  ]
 }
