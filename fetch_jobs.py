@@ -9,6 +9,7 @@ if not api_key:
     print("Error: JOOBLE_API_KEY is missing.")
     exit(1)
 
+# FIXED: Added the 'f' at the beginning so python reads your secret key
 url = f"https://jooble.org/api/{api_key}"
 
 # Search payload for Qatar jobs
@@ -38,6 +39,5 @@ try:
 
 except Exception as e:
     print(f"Failed to fetch jobs: {e}")
-    # Save empty list to prevent site crash
     with open("jobs.json", "w", encoding="utf-8") as f:
         json.dump([], f)
